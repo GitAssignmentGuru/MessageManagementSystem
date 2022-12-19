@@ -1,0 +1,59 @@
+﻿@model MessageManagementSystem.Models.MessageInformation
+@{
+    ViewBag.Title = "HomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HomePage</h2>
+
+
+@using (Html.BeginForm())
+{
+    <h4>Select Client</h4>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClientID, "ClientID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ClientID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="text-center" style="margin-top:10%">
+        <h1>Client Messgae</h1>
+        <marquee width="60%" direction="left" height="100px">
+            <h2 id="showMessage" style="margin-top:20px;"></h2>
+        </marquee>
+        
+    </div>
+    
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function(){
+
+            $("#ClientID").change(function() {
+
+            var t = $(this).val();
+
+            if (t !== "") {
+                $.post("@Url.Action("GetDefault", "Home")?val=" + t, function(res) {
+                    if (res.Success === "true") {
+
+                      //enable the text boxes and set the value
+
+                        $("#showMessage").html(res.Data.info);
+
+                    } else {
+                        alert("Error getting data!");
+                    }
+                });
+            } else {
+            }
+        });
+ });
+
+    </script>
+}

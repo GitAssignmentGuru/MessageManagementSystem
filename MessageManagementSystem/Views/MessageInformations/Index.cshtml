@@ -1,0 +1,80 @@
+﻿@model IEnumerable<MessageManagementSystem.Models.MessageInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfdays)
+        </th>
+        <th>
+            Remaining Days
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostofUnit)
+        </th>
+        <th>
+            Client Cost Remaining
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinetInformation.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfdays)
+            </td>
+            <td>
+                @{
+                    int days = Convert.ToInt32(Math.Floor((DateTime.Now - item.StartDate).TotalDays));
+                }
+                @(item.NumberOfdays - days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostofUnit)
+            </td>
+            <td>
+                @(item.ClinetInformation.CreditUnits - (item.CostofUnit * days))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClinetInformation.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { ClientID = item.ClientID }) |
+                @Html.ActionLink("Details", "Details", new { ClientID = item.ClientID }) |
+                @Html.ActionLink("Delete", "Delete", new { ClientID = item.ClientID })
+            </td>
+        </tr>
+    }
+
+</table>

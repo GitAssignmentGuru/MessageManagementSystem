@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ClinetInformation">
+    <Key>
+      <PropertyRef Name="UniqueID" />
+    </Key>
+    <Property Name="UniqueID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="bigint" Nullable="false" />
+    <Property Name="CreditUnits" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MessageInformation">
+    <Key>
+      <PropertyRef Name="CostofUnit" />
+    </Key>
+    <Property Name="ClientID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumberOfdays" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="CostofUnit" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MessageInformation_ClinetInformation">
+    <End Role="ClinetInformation" Type="Self.ClinetInformation" Multiplicity="1" />
+    <End Role="MessageInformation" Type="Self.MessageInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClinetInformation">
+        <PropertyRef Name="UniqueID" />
+      </Principal>
+      <Dependent Role="MessageInformation">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MMSModelStoreContainer">
+    <EntitySet Name="ClinetInformation" EntityType="Self.ClinetInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MessageInformation" EntityType="Self.MessageInformation" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MessageInformation_ClinetInformation" Association="Self.FK_MessageInformation_ClinetInformation">
+      <End Role="ClinetInformation" EntitySet="ClinetInformation" />
+      <End Role="MessageInformation" EntitySet="MessageInformation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

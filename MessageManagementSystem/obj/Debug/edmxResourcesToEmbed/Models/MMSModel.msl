@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MMSModelStoreContainer" CdmEntityContainer="MMSEntities1">
+    <EntitySetMapping Name="ClinetInformations">
+      <EntityTypeMapping TypeName="MMSModel.ClinetInformation">
+        <MappingFragment StoreEntitySet="ClinetInformation">
+          <ScalarProperty Name="UniqueID" ColumnName="UniqueID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CreditUnits" ColumnName="CreditUnits" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MessageInformations">
+      <EntityTypeMapping TypeName="MMSModel.MessageInformation">
+        <MappingFragment StoreEntitySet="MessageInformation">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="NumberOfdays" ColumnName="NumberOfdays" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="CostofUnit" ColumnName="CostofUnit" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
